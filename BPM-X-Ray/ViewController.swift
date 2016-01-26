@@ -29,9 +29,18 @@ class ViewController: UIViewController, UIScrollViewDelegate, UINavigationContro
     
     @IBOutlet weak var shapesButton: UIView!
     @IBOutlet weak var shapesSubMenu: UIStackView!
+    @IBOutlet weak var taskOpt: UIView!
+    @IBOutlet weak var startOpt: UIView!
+    @IBOutlet weak var stopOpt: UIView!
+    @IBOutlet weak var conditionalOpt: UIView!
+    
     
     
     @IBOutlet weak var linesButton: UIView!
+    @IBOutlet weak var linesSubMenu: UIStackView!
+    
+    
+    @IBOutlet weak var textButton: UIView!
     
     var selectedImage: UIImage?
     var imagePicker: UIImagePickerController!
@@ -63,7 +72,10 @@ class ViewController: UIViewController, UIScrollViewDelegate, UINavigationContro
 //        [rect setBackgroundColor:pallete.lightGreen];
         
         topMenuView.backgroundColor = pallete?.backGround
-        sideMenu.backgroundColor = pallete?.sideBackGround
+        sideMenu.backgroundColor = pallete?.sideBackGroundLight
+        shapesButton.backgroundColor = pallete?.sideBackGround
+        linesButton.backgroundColor = pallete?.sideBackGround
+        textButton.backgroundColor = pallete?.sideBackGround
         
 //        textLabel.textColor = pallete?.textSideBar
 //        linesLabel.textColor = pallete?.textSideBar
@@ -75,7 +87,15 @@ class ViewController: UIViewController, UIScrollViewDelegate, UINavigationContro
 //        shapesButton.layer.borderColor = UIColor.blueColor().CGColor
         
         shapesButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "displayShapesSubMenu"))
-//        sideMenu.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "displayShapesSubMenu"))
+        linesButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "displayLinesSubMenu"))
+        
+        taskOpt.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "changeToTask"))
+        startOpt.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "changeToStart"))
+        stopOpt.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "changeToStop"))
+        conditionalOpt.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "changeToConditional"))
+        
+        scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "hideSideMenu"))
+        scrollView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "addElement:"))
         // Do any additional setup after loading the view.
     }
     
@@ -228,11 +248,12 @@ class ViewController: UIViewController, UIScrollViewDelegate, UINavigationContro
         sideMenu.hidden = false
         editView = sender.view
 
-        self.scrollView.contentOffset = CGPoint(x: (editView?.frame.origin.x)! - 30 , y: -(self.scrollView.bounds.size.height - self.imageView!.bounds.size.height)/2.0)
+        self.scrollView.contentOffset = CGPoint(x: (editView?.frame.origin.x)! - 30 , y: (editView?.frame.origin.y)! - (self.scrollView.bounds.size.height/2 ) + 30)
     }
 
-    @IBAction func toogleShapes(sender: AnyObject) {
-        displaySubMenu(Menu.shapes)
+    
+    func displayLinesSubMenu(){
+        displaySubMenu(Menu.lines)
     }
     
     func displayShapesSubMenu(){
@@ -249,10 +270,74 @@ class ViewController: UIViewController, UIScrollViewDelegate, UINavigationContro
             }
             break
             
+        case .lines:
+            if(linesSubMenu.hidden){
+                linesSubMenu.hidden = false
+            }else{
+                linesSubMenu.hidden = true
+            }
+            break
+            
         default:
             break
         }
     }
+    
+    
+    func changeToTask(){
+        editView?.backgroundColor = pallete?.lightBlue
+        editView?.layer.borderColor = pallete?.darkBlue.CGColor
+        editView?.layer.cornerRadius = 5
+        editView!.layer.borderWidth = 4
+        
+    }
+    
+    func changeToStart(){
+        editView?.backgroundColor = pallete?.lightGreen
+        editView?.layer.borderColor = pallete?.darkGreen.CGColor
+        editView?.layer.cornerRadius = editView!.frame.size.width/2;
+        editView!.layer.borderWidth = 4
+    }
+    
+    func changeToStop(){
+        editView?.backgroundColor = pallete?.lightRed
+        editView?.layer.borderColor = pallete?.darkRed.CGColor
+        editView?.layer.cornerRadius = editView!.frame.size.width/2;
+        editView!.layer.borderWidth = 4
+    }
+    
+    func changeToConditional(){
+        editView?.backgroundColor = pallete?.lightYellow
+        editView?.layer.borderColor = pallete?.darkYellow.CGColor
+        editView?.layer.cornerRadius = 5
+        editView!.layer.borderWidth = 4
+        editView?.frame.size.width = (editView?.frame.size.height)!
+        editView?.transform = CGAffineTransformMakeRotation(45)
+    }
+    
+    func hideSideMenu(){
+        sideMenu.hidden = true
+    }
+    
+    func addElement(sender:UILongPressGestureRecognizer){
+        let x = sender.locationInView(scrollView).x
+        let y = sender.locationInView(scrollView).y
+        sideMenu.hidden = false
+        let frame = CGRectMake(x-25, y-25, 50, 50)
+        let newView = UIView(frame: frame)
+
+        newView.layer.cornerRadius = 5;
+        scrollView.addSubview(newView)
+        
+        
+        
+        editView = newView
+
+    }
+    
+//    func scrollViewDidScroll(scrollView: UIScrollView) {
+//        sideMenu.hidden = true
+//    }
     
 }
 

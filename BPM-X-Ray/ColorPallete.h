@@ -17,9 +17,12 @@
 @property (nonatomic, retain) UIColor *darkRed;
 @property (nonatomic, retain) UIColor *lightBlue;
 @property (nonatomic, retain) UIColor *darkBlue;
+@property (nonatomic, retain) UIColor *lightYellow;
+@property (nonatomic, retain) UIColor *darkYellow;
 @property (nonatomic, retain) UIColor *backGround;
 @property (nonatomic, retain) UIColor *sideBackGround;
 @property (nonatomic, retain) UIColor *textSideBar;
+@property (nonatomic, retain) UIColor *sideBackGroundLight;
 
 + (id)sharedManager;
 @end

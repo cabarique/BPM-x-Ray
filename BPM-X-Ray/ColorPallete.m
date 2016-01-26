@@ -16,9 +16,12 @@
 @synthesize lightBlue;
 @synthesize darkRed;
 @synthesize lightRed;
+@synthesize lightYellow;
+@synthesize darkYellow;
 @synthesize backGround;
 @synthesize sideBackGround;
 @synthesize textSideBar;
+@synthesize sideBackGroundLight;
 
 + (id)sharedManager {
     static ColorPallete *sharedMyManager = nil;
@@ -38,10 +41,13 @@
         lightRed = [UIColor colorWithRed:251.0f/255.0f green:231.0f/255.0f blue:239.0f/255.0f alpha:1.0f];
         lightBlue = [UIColor colorWithRed:238.0f/255.0f green:241.0f/255.0f blue:1.0f alpha:1.0f];
         darkBlue = [UIColor colorWithRed:26.0f/255.0f green:115.0f/255.0f blue:166.0f/255.0f alpha:1.0f];
+        lightYellow = [UIColor colorWithRed:255.0f/255.0f green:254.0f/255.0f blue:238.0f alpha:1.0f];
+        darkYellow = [UIColor colorWithRed:181.0f/255.0f green:181.0f/255.0f blue:32.0f/255.0f alpha:1.0f];
         backGround = [UIColor colorWithRed:22.0f/255.0f green:41.0f/255.0f blue:52.0f/255.0f alpha:1.0f];
         sideBackGround = [UIColor colorWithRed:46.0f/255.0f green:55.0f/255.0f blue:68.0f/255.0f alpha: 0.90f];
         textSideBar = [UIColor colorWithRed:185.0f/255.0f green:203.0f/255.0f blue:217.0f/255.0f alpha:1];
-//        185,203,217
+        sideBackGroundLight = [UIColor colorWithRed:46.0f/255.0f green:55.0f/255.0f blue:68.0f/255.0f alpha:0.9f];
+//        46,55,68,0.9
 //        46,55,68,0.9
     
     }
